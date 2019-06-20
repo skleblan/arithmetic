@@ -36,5 +36,5 @@ $result = $test->request( GET '/get/add/-4/-25');
 is($result->content, -29, "adding two neg numbers");
 
 $result = $test->request( GET '/get/add/text/2');
-die "what is my preferred behavior in this case?\n";
+ok(is_client_error($result->code), "add num + text = 400 error");
 
