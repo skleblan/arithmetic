@@ -10,4 +10,10 @@ get '/get/add/:first/:second' => sub {
   return $first_int + $second_int;
 };
 
+post '/post/minux' => sub {
+  my $first_lrg_int = body_parameters->get('firstnum');
+  my $second_sml_int = body_parameters->get('secondnum');
+  return $first_lrg_int - $second_sml_int;
+};
+
 true;

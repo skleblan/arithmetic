@@ -24,7 +24,7 @@ BEGIN{
 
 use arithmatic;
 use Plack::Test;
-use HTTP::Request;
+use HTTP::Request::Common;
 use Encode qw( encode_utf8 );
 use Test::More tests => 1;                      # last test to print
 
@@ -33,11 +33,10 @@ my $test = Plack::Test->create($app);
 
 my $result;
 
-my $data = encode_utf8("large=5\nsmall=1");
-my $http_req = new HTTP::Request("POST", "/post/minus", {}, $data);
-$result = $test->request( POST '/post/minus' );
+my $http_req = POST "/post/minus", [ firstnum => 5, secondnum => 2 ];
+$result = $test->request($http_req);
 #when writing the code, use body_parameters instead of route_parameters
-is($result->content, 4, "basic subtraction test");
+is($result->content, 3, "basic subtraction test");
 
 
 
